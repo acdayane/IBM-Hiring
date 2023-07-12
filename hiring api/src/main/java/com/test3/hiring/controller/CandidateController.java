@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import com.test3.hiring.service.CandidateService;
 
 @RestController
 @RequestMapping("/api/v1/hiring")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CandidateController {
 
     @Autowired
@@ -79,6 +81,17 @@ public class CandidateController {
         try {
             List<Candidate> allApproved = service.getAllApproved();
             return ResponseEntity.ok(allApproved);
+  
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }        
+    } 
+
+    @GetMapping("/allcandidates")
+    public ResponseEntity<List<Candidate>> getAllCandidates() {
+        try {
+            List<Candidate> allCandidates = service.getAllCandidates();
+            return ResponseEntity.ok(allCandidates);
   
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

@@ -82,4 +82,9 @@ public class CandidateService {
         return approvedCandidates;
     }
 
+    public List<Candidate> getAllCandidates() {
+        List<Candidate> candidatesList = repository.findAll();
+        return candidatesList;
+    }
+
 }
